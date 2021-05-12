@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Operator Report";
+    var PreDefined = new List<string>()
+{
+        "Today"
+        ,"Yesterday"
+        ,"This Week"
+        ,"Last Week"
+        ,"This Month"
+        ,"Last Month"
+        ,"This Year"
+        ,"Last Year"
+    };
+} 
+<style>
+    #radioBtn .notActive {
+        color: #3276b1;
+        background-color: #fff;
+    }
+
+</style>
+<h1 style="text-align:center">Operator Report</h1>
+<div class="jumbotron">
+    <form id="formFilter">
+        <table class="table">
+            <tr>
+                <td style="width:200px"><label>Date Filter:</label></td>
+                <td style="width:247px">
+                    <div class="input-group">
+                        <div id="radioBtn" class="btn-group">
+                            <a class="btn btn-primary btn-sm notActive" data-toggle="DateFilter" data-title="Pre-Defined">Pre-Defined</a>
+                            <a class="btn btn-primary btn-sm notActive" data-toggle="DateFilter" data-title="Custom">Custom</a>
+                        </div>
+                        <input type="hidden" name="DateFilter" id="DateFilter">
+                    </div>
+                </td>
+                <td>
+                    <div class="form-inline" id="Pre-Defined">
+                        <label class="control-label">Pre-Defined</label>
+                        &nbsp;&nbsp;
+                        @Html.DropDownList("PreDefined", new SelectList(PreDefined), "Select-Option", new { @class = "form-control" })
+                    </div>
+                    <div class="form-inline" id="Custom">
+                        <label class="control-label">From</label>
+                        &nbsp;&nbsp;
+                        <input type="date" id="From" name="From" class="form-control" />
+                        &nbsp;&nbsp;
+                        <label class="control-label">To</label>
+                        &nbsp;&nbsp;
+                        <input type="date" id="To" name="To" class="form-control" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Website:</label></td>
+                <td>
+                    @Html.DropDownList("Website", new SelectList(ViewBag.Websites), "All", new { @class = "form-control" })
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label>Device:</label></td>
+                <td>
+                    @Html.DropDownList("Device", new SelectList(ViewBag.Devices), "All", new { @class = "form-control" })
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+    <button id="btnApply" class="btn btn-primary btn-block">Apply</button>
+</div>
+
+<div class="jumbotron">
+    <a href="@Url.Action("DownloadExcel","Home")">Download Excel</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Operator Name</th>
+                <th>Proactive Sent</th>
+                <th>Proactive Answered</th>
+                <th>Proactive Response Rate</th>
+                <th>Reactive Received</th>
+                <th>Reactive Answered</th>
+                <th>Reactive Response Rate</th>
+                <th>Total Chat Length</th>
+                <th>Average Chat Length</th>
+            </tr>
+        </thead>
+        <tbody id="bodyContent">
+        </tbody>
+    </table>
+</div> 
